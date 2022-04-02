@@ -1,0 +1,44 @@
+@import url('http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css');
+
+$color : #116530;
+$text-main-color : #333;
+$text-sub-color : #909090;
+$title-font-size : 20px;
+$sub-title-font-size : 17px;
+
+@font-face {
+  font-family: 'GmarketSansLight';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GmarketSansBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@mixin btn-main {
+  border-radius: 10px;
+  padding: 13px;
+  cursor: pointer;
+  background: $color;
+  color: #fff;
+  border: 1px solid $color;
+}
+@mixin btn-sub {
+  border-radius: 10px;
+  padding: 13px;
+  cursor: pointer;
+  background: #fff;
+  color: $color;
+  border: 1px solid $color;
+}
