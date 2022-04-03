@@ -54,6 +54,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
+  z-index: 10;
   .inner {
     margin: 0 auto;
     height: 100%;
@@ -64,6 +65,7 @@ body {
   }
   a {
     color: $color;
+    cursor: pointer;
   }
   a:not(.logo) {
     margin-left: 2rem;
@@ -85,6 +87,7 @@ body {
 .content {
   max-width: 1050px;
   height: 100vh;
+  min-height: 696px;
   padding: 0 1rem;
   margin:  0 auto;
   position: relative;
@@ -140,6 +143,7 @@ body {
       a {
         color: $color;
         position: relative;
+        cursor: pointer;
         &::after {
           content: '';
           position: absolute;
