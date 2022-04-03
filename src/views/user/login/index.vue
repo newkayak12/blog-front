@@ -2,10 +2,10 @@
   <div class="box">
     <h1>로그인</h1>
     <form action="">
-      <label for="">로그인아이디</label>
-      <input type="text" name="" id="" placeholder="로그인아이디" v-model="id">
-      <label for="">로그인비밀번호</label>
-      <input :type="isShowPassword" name="" id="" placeholder="로그인비밀번호" v-model="password">
+      <label>로그인아이디</label>
+      <input type="text" placeholder="로그인아이디" v-model="id">
+      <label>로그인비밀번호</label>
+      <input :type="isShowPassword" placeholder="로그인비밀번호" v-model="password">
       <button @click.prevent="fnShowPassword">
         show!
       </button>
@@ -23,6 +23,8 @@
 
 <script>
 import UserSvc from "@/service/UserSvc";
+import {useToast} from 'vue-toastification'
+
 export default {
   name: "index",
   data() {
@@ -41,9 +43,11 @@ export default {
     },
     async fnLogin(){
       const response = await UserSvc.signIn({userId:this.id, userPassword:this.password})
-      console.log(response)
-
-
+      console.log(response.data.code)
+      if(response.data.code === 200) {
+        return ( useToast().success(response.data.msg));
+      }
+      return useToast().error(response.data.msg)
     },
     fnLinkFindId() {
       this.$router.push({path: '/findId'});

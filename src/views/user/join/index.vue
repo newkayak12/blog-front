@@ -2,14 +2,14 @@
   <div class="box">
     <h1>회원가입</h1>
     <form action="">
-      <label for="">이메일</label>
-      <input type="email" name="" id="" placeholder="이메일">
-      <label for="">로그인아이디</label>
-      <input type="text" name="" id="" placeholder="로그인아이디">
-      <label for="">로그인비밀번호</label>
-      <input type="password" name="" id="" placeholder="로그인비밀번호">
+      <label>닉네임</label>
+      <input type="text" placeholder="닉네임" v-model="nickname">
+      <label>로그인아이디</label>
+      <input type="text" placeholder="로그인아이디" v-model="id">
+      <label>로그인비밀번호</label>
+      <input type="password" placeholder="로그인비밀번호" v-model="password">
       <div class="btns">
-        <input type="button" value="회원가입">
+        <input type="button" value="회원가입" @click="fnJoin">
         <button>로그인</button>
       </div>
     </form>
@@ -21,8 +21,18 @@
 </template>
 
 <script>
+import UserSvc from "@/service/UserSvc";
+import {useToast} from 'vue-toastification'
+
 export default {
   name: "index",
+  data() {
+    return {
+      nickname: '',
+      id: '',
+      password: ''
+    }
+  },
   methods:{
     fnLinkFindId() {
       this.$router.push({path: '/findId'});
@@ -30,6 +40,14 @@ export default {
     fnLinkFindPw() {
       this.$router.push({path: '/findPw'});
     },
+    async fnJoin() {
+      const response = await UserSvc.signUp({userId: this.id, userPassword: this.password, userNickname: this.nickname});
+      if(response.data.code === 200) {
+        useToast().success(response.data.msg);
+        return;
+      }
+      useToast().error(response.data.msg);
+    }
   }
 }
 </script>

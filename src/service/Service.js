@@ -65,11 +65,13 @@ class Service{
         store.commit('user/setAuthorization', {authorization:token})
         store.commit('user/setUserData', {userData:userData})
         localStorage.setItem("userData", JSON.stringify(userData))
+        localStorage.setItem('token', token)
     }
     deleteToken(token = "", userData={}){
-        store.commit('user/setAuthorization', )
-        store.commit('user/setUserData', )
+        store.commit('user/setAuthorization', {authorization:''})
+        store.commit('user/setUserData', {userData:{}} )
         localStorage.removeItem("userData")
+        localStorage.removeItem("token")
     }
 }
 export default Service
