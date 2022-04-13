@@ -8,7 +8,7 @@
         </template>
         <template v-else>
           <a class="" @click="fnLogout">로그아웃</a>
-          <a class="">내정보</a>
+          <a class="" @click="fnLinkMyPage">내정보</a>
           <a class="">내블로그</a>
           <a class="">새글쓰기</a>
         </template>
@@ -38,6 +38,9 @@ export default {
     },
     fnLinkJoin() {
       this.$router.push({path: '/join'});
+    },
+    fnLinkMyPage() {
+      this.$router.push({path: '/myPage'});
     },
     async fnLogout() {
       const response = await UserSvc.signOut();

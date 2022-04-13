@@ -35,6 +35,14 @@ class Service{
             data:payload
         })
     }
+    patch(path, payload){
+        return this.$axios.request({
+            method:"PATCH",
+            url:path,
+            responseType:"json",
+            data:payload
+        })
+    }
     post(path,payload){
         return this.$axios.request({
             method:"post",
@@ -62,8 +70,10 @@ class Service{
     }
 
     setToken(token="", userData={}){
+        // vue의 저장공간(vuex)에 저장 -> 새로고침하면 날라가
         store.commit('user/setAuthorization', {authorization:token})
         store.commit('user/setUserData', {userData:userData})
+        // 쿠키에 저장 -> 새로고침해도 안날라가게
         localStorage.setItem("userData", JSON.stringify(userData))
         localStorage.setItem('token', token)
     }

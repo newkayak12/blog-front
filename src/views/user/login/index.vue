@@ -6,9 +6,7 @@
       <input type="text" placeholder="로그인아이디" v-model="id">
       <label>로그인비밀번호</label>
       <input :type="isShowPassword" placeholder="로그인비밀번호" v-model="password">
-      <button @click.prevent="fnShowPassword">
-        show!
-      </button>
+<!--      <button @click.prevent="fnShowPassword">show</button>-->
       <div class="btns">
         <input type="button" value="로그인" @click="fnLogin">
         <button>회원가입</button>
@@ -36,25 +34,29 @@ export default {
   },
   methods:{
     fnShowPassword(){
-      if(this.isShowPassword==='password'){
+      if(this.isShowPassword==='password') {
         return this.isShowPassword='text'
       }
       return this.isShowPassword='password'
     },
+
     async fnLogin(){
       const response = await UserSvc.signIn({userId:this.id, userPassword:this.password})
-      console.log(response.data.code)
       if(response.data.code === 200) {
-        return ( useToast().success(response.data.msg));
+        // this.$router.push({path: '/boardList'})
+        return ( useToast().success(response.data.msg))
       }
       return useToast().error(response.data.msg)
     },
+
     fnLinkFindId() {
-      this.$router.push({path: '/findId'});
+      this.$router.push({path: '/findId'})
     },
+
     fnLinkFindPw() {
-      this.$router.push({path: '/findPw'});
+      this.$router.push({path: '/findPw'})
     },
+
   },
   components: {
   }

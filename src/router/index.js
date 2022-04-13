@@ -4,6 +4,8 @@ import userLogin from '@/views/user/login/index'
 import userJoin from '@/views/user/join/index'
 import findId from '@/views/user/find/findId'
 import findPw from '@/views/user/find/findPw'
+import myPage from '@/views/user/myPage/index'
+import boardList from '@/views/board/list/index'
 
 const routes = [
   {
@@ -27,6 +29,14 @@ const routes = [
     path: '/findPw',
     name: 'findPw',
     component: findPw
+  },{
+    path: '/myPage',
+    name: 'myPage',
+    component: myPage
+  },{
+    path: '/boardList',
+    name: 'boardList',
+    component: boardList
   },
 ]
 

@@ -5,7 +5,7 @@ class userSvc extends Service{
             .then(response=>{
 
                 if(response.data.code===200){
-                    console.log("HEI")
+                    console.log('로그인성공')
                     const token = response.data.data.token
                     const userData= response.data.data.userData
                     this.setToken(token, userData)
@@ -35,6 +35,24 @@ class userSvc extends Service{
             });
     }
 
+    changePassword(param={}) {
+        return this.patch('/api/user/changePassword', param)
+            .then(response => {
+                if(response.data.code === 200){
+                    const token = response.data.data.token
+                    const userData= response.data.data.userData
+                    this.setToken(token, userData);
+                }
+                return response;
+            })
+    }
+
+    fetchList(param={}) {
+        return this.get('/api/board/fetchList', param)
+            .then(response => {
+                return response;
+            });
+    }
 
 }
 export default new userSvc()
