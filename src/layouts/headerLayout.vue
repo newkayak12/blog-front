@@ -2,7 +2,8 @@
     <div class="header">
       <div class="inner">
         <a class="logo">블로그</a>
-        <template v-if="!auth">
+        <template v-if="!auth()">
+<!--        <template v-if="!auth2">-->
           <a @click.prevent="fnLinkJoin()">회원가입</a>
           <a @click.prevent="fnLinkLogin()">로그인</a>
         </template>
@@ -24,13 +25,15 @@ export default {
   name: "headerLayout",
   data() {
     return {
-
+      // 캐싱
+      // auth2: this.$store.getters['user/getAuthorization'],
     }
   },
   computed: {
-    auth(){
-      return this.$store.getters['user/getAuthorization']
-    }
+    // 캐싱 o
+    // auth(){
+    //   return this.$store.getters['user/getAuthorization']
+    // }
   },
   methods: {
     fnLinkLogin() {
@@ -45,7 +48,11 @@ export default {
     async fnLogout() {
       const response = await UserSvc.signOut();
       await this.$router.push({path:'/'})
+
       useToast().success("로그아웃되었습니다.");
+    },
+    auth() {
+      return this.$store.getters['user/getAuthorization']
     }
   }
 }

@@ -17,9 +17,7 @@ class userSvc extends Service{
     signOut() {
         return this.get('/api/user/signOut')
             .then(response => {
-                if(response.data.code === 200){
-                    this.deleteToken()
-                }
+                this.deleteToken()
             })
     }
 
@@ -50,7 +48,7 @@ class userSvc extends Service{
     fetchList(param={}) {
         return this.get('/api/board/fetchList', param)
             .then(response => {
-                return response;
+                return response.data;
             });
     }
 
