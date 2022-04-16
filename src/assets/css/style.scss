@@ -219,6 +219,7 @@ body {
             color: $color;
             display: inline-block;
             position: relative;
+            cursor: pointer;
             &::after {
               content: '';
               position: absolute;
@@ -243,6 +244,34 @@ body {
       }
     }
   }
-  
-
+}
+.view {
+  max-width: 1050px;
+  padding: 0 1rem;
+  margin:  0 auto;
+  margin-top: 60px;
+  padding-top: 50px;
+  .board-head {
+    h1 {
+      color: $color;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    div {
+      display: flex;
+      span {
+        color: $text-sub-color;
+        &:not(.written-date) {
+          margin-left: 2rem;
+          cursor: pointer;
+        }
+        &:first-of-type {
+          margin-right: auto;
+        }
+      }
+    }
+  }
+  .board-content {
+    margin-top: 2rem;
+  }
 }

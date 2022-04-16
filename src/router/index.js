@@ -6,6 +6,7 @@ import findId from '@/views/user/find/findId'
 import findPw from '@/views/user/find/findPw'
 import myPage from '@/views/user/myPage/index'
 import boardList from '@/views/board/list/index'
+import boardView from '@/views/board/view/index'
 
 const routes = [
   {
@@ -37,7 +38,11 @@ const routes = [
     path: '/boardList',
     name: 'boardList',
     component: boardList
-  },
+  },{
+    path: '/boardView',
+    name: 'boardView',
+    component: boardView
+  }
 ]
 
 const router = createRouter({

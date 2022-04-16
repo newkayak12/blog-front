@@ -52,5 +52,19 @@ class userSvc extends Service{
             });
     }
 
+    fetchOne(param={}) {
+        return this.get('/api/board/fetchOne', param)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    deleteBoard(param={}) {
+        return this.delete('/api/board/deleteBoard', param)
+            .then(response => {
+                return response.data;
+            });
+    }
+
 }
 export default new userSvc()

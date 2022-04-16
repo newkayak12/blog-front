@@ -7,12 +7,12 @@ import '@/assets/css/style.scss'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import moment from 'vue-moment-v3'
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 
-
-import Vue from 'vue'
 
 const options = {
 
 };
 
-createApp(App).use(store).use(Toast).use(router).use(moment).mount('#app')
+createApp(App).use(store).use(Toast).use(router).use(moment).component("infinite-loading", InfiniteLoading).mount('#app')
