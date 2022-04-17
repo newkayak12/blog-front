@@ -5,11 +5,12 @@
       <h1>{{ boardObj.boardTitle }}</h1>
       <div>
         <span class="written-date">{{$filters.moment(boardObj.boardWrittenDate,"YYYY년 MM월 DD일")}}</span>
-        <span>수정</span>
+        <span @click="fnLinkBoardUpdate">수정</span>
         <span @click="fnDeleteBoard">삭제</span>
       </div>
     </div>
-    <div class="board-content">ddd</div>
+<!--    <div class="board-content">{{ boardObj.boardContent }}</div>-->
+    <Markdown :source="boardObj.boardContent" class="board-content remove-resetcss" />
   </div>
 
 <!--  <div class="list">-->
@@ -38,9 +39,14 @@
 import UserSvc from '@/service/UserSvc';
 import _ from 'lodash'
 import {useToast} from "vue-toastification";
+import 'highlight.js/styles/monokai.css';
+import Markdown from 'vue3-markdown-it';
 
 export default {
   name: "index",
+  components: {
+    Markdown
+  },
   beforeMount() {
     this.fetchOne()
     this.fetchList()
@@ -49,7 +55,7 @@ export default {
     return {
       boardObj: {},
       boardList: [],
-      boardTotalCount: 0
+      boardTotalCount: 0,
     }
   },
   methods: {
@@ -71,9 +77,12 @@ export default {
       const response = await UserSvc.deleteBoard({boardNo: this.$route.query.boardNo});
       if(response.code === 200) {
         await useToast().success(response.msg);
-        await this.$router.push({path: '/boardList'});
+        await this.$router.replace({path: '/boardList'});
         return
       }
+    },
+    fnLinkBoardUpdate() {
+      this.$router.push({path: '/boardWrite', query: {boardNo: this.$route.query.boardNo}});
     }
   }
 }

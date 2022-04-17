@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from 'vuex'
 // USER
 import userLogin from '@/views/user/login/index'
 import userJoin from '@/views/user/join/index'
@@ -7,11 +8,23 @@ import findPw from '@/views/user/find/findPw'
 import myPage from '@/views/user/myPage/index'
 import boardList from '@/views/board/list/index'
 import boardView from '@/views/board/view/index'
+import boardWrite from '@/views/board/write/index'
 
 const routes = [
   {
     path:'/',
-    redirect:'/login'
+    // redirect:'/login'
+    beforeEnter: (to, from, next)=>{
+      const token = localStorage.getItem("token")
+      if(token){
+        next('/boardList');
+        return
+      } else {
+        next('/login');
+        return
+      }
+      next('/login');
+    }
   },
   {
     path: '/login',
@@ -42,7 +55,12 @@ const routes = [
     path: '/boardView',
     name: 'boardView',
     component: boardView
+  },{
+    path: '/boardWrite',
+    name: 'boardWrite',
+    component: boardWrite
   }
+
 ]
 
 const router = createRouter({

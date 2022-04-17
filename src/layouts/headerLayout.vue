@@ -10,8 +10,8 @@
         <template v-else>
           <a class="" @click="fnLogout">로그아웃</a>
           <a class="" @click="fnLinkMyPage">내정보</a>
-          <a class="">내블로그</a>
-          <a class="">새글쓰기</a>
+          <a class="" @click="fnLinkBoardList">글목록</a>
+          <a class="" @click="fnLinkWriteBoard">새글쓰기</a>
         </template>
       </div>
     </div>
@@ -48,11 +48,16 @@ export default {
     async fnLogout() {
       const response = await UserSvc.signOut();
       await this.$router.push({path:'/'})
-
       useToast().success("로그아웃되었습니다.");
     },
     auth() {
       return this.$store.getters['user/getAuthorization']
+    },
+    fnLinkWriteBoard() {
+      this.$router.push({path: '/boardWrite'});
+    },
+    fnLinkBoardList() {
+      this.$router.push({path: '/boardList'});
     }
   }
 }

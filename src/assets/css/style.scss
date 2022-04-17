@@ -1,6 +1,6 @@
 @import "mixin";
 
-* {
+*:not(.remove-resetcss *) {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -185,6 +185,21 @@ body {
   margin:  0 auto;
   margin-top: 60px;
   padding-top: 50px;
+  .jandi {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    .jandi-block {
+      width: 15px;
+      height: 15px;
+      background: #eee;
+      border-radius: 3px;
+      &.on {
+        background: $color;
+      }
+    }
+  }
   p {
     margin-bottom: 10px;
     color: $color;
@@ -210,30 +225,12 @@ body {
     tbody{
       tr {
         border-bottom: 1px dashed $color;
+        cursor: pointer;
         td {
           text-align: center;
           padding: 13px 0;
           color: $color;
           position: relative;
-          a {
-            color: $color;
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            &::after {
-              content: '';
-              position: absolute;
-              bottom: 3px;
-              left: 0;
-              width: 100%;
-              height: 1px;
-              background: $color;
-              opacity: 0;
-            }
-            &:hover::after {
-              opacity: 1;
-            }
-          }
           &.title {
             text-align: left;
           }
@@ -273,5 +270,23 @@ body {
   }
   .board-content {
     margin-top: 2rem;
+  }
+}
+.editor {
+  .editor-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    input[type=text] {
+      border: none;
+      outline: none;
+      font-size: 2rem;
+      &::placeholder {
+        font-size: 2rem;
+      }
+    }
+    button {
+      margin-left: auto;
+    }
   }
 }

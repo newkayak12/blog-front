@@ -52,6 +52,13 @@ class userSvc extends Service{
             });
     }
 
+    fetchJandiList(param={}) {
+        return this.get('/api/jandi/fetchList', param)
+            .then(response => {
+                return response.data;
+            });
+    }
+
     fetchOne(param={}) {
         return this.get('/api/board/fetchOne', param)
             .then(response => {
@@ -61,6 +68,20 @@ class userSvc extends Service{
 
     deleteBoard(param={}) {
         return this.delete('/api/board/deleteBoard', param)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    writeBoard(param={}) {
+        return this.post('/api/board/writeBoard', param)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    modifyBoard(param={}) {
+        return this.patch('/api/board/modifyBoard', param)
             .then(response => {
                 return response.data;
             });

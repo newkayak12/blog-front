@@ -7,18 +7,23 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.15",
     "@vuelidate/core": "^2.0.0-alpha.40",
     "@vuelidate/validators": "^2.0.0-alpha.28",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
+    "marked": "^4.0.14",
+    "prismjs": "^1.27.0",
     "v3-infinite-loading": "^1.0.6",
     "vue": "^3.2.13",
     "vue-moment-v3": "^4.1.0",
     "vue-router": "^4.0.13",
     "vue-toastification": "^2.0.0-rc.5",
+    "vue3-markdown-it": "^1.0.10",
     "vuelidate": "^0.7.7",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "waait": "^1.0.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

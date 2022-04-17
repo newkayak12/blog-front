@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="list" v-if="boardList.length">
+      <div class="jandi" >
+        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>
+      </div>
       <p>게시글 수 : {{boardTotalCount}}</p>
       <table>
         <thead>
@@ -10,11 +13,11 @@
         <th>수정날짜</th>
         </thead>
         <tbody>
-        <tr v-for="item in boardList">
-          <td>{{item.boardNo}}</td>
-          <td class="title" @click="fnLinkBoardView(item.boardNo)"><a>{{item.boardTitle}}</a></td>
+        <tr v-for="(item,i) in boardList" @click="fnLinkBoardView(item.boardNo)">
+          <td>{{boardTotalCount-i}}</td>
+          <td class="title">{{item.boardTitle}}</td>
           <td>{{$filters.moment(item.boardWrittenDate,"YYYY-MM-DD")}}</td>
-          <td>{{item.boardUpdatedDate || "-"}}</td>
+          <td>{{$filters.moment(item.boardUpdateDate,"YYYY-MM-DD") || "-"}}</td>
         </tr>
         </tbody>
       </table>
@@ -26,26 +29,34 @@
       </p>
       <a href="">첫 글 쓰러 가기</a>
   <!--    마크다운 에디터 참고 : https://v3.vuejs-korea.org/examples/markdown.html-->
-
     </div>
-    <div style="height: 1000px; background: red"></div>
-    <InfiniteLoading @infinite="test()"/>
+<!-- <InfiniteLoading identifier=page firstLoad=false @infinite="test()"/>-->
+    <div style="text-align: center; padding-top: 2rem;">
+      <InfiniteLoading :identifier=index :first-load=false @infinite="test"/>
+    </div>
   </div>
 </template>
 
 <script>
 import UserSvc from "@/service/UserSvc";
 import InfiniteLoading from "v3-infinite-loading";
+import wait from 'waait';
+
 export default {
   name: "index",
   components: {
     InfiniteLoading
   },
-
+  // 1. 다음페이지가 있을때만 로딩필요
+  // 2. lodash.throttle 써서 한번에 하나만 로딩되게
+  // 3. 아래와 같이 직접 userSvc를 불러도 좋지만, fetchList를 조금만 바꾸면 같은 기능을 하게할 수 잇다.
   data() {
     return {
       boardList: [],
+      jandiList: [],
       page: 0,
+      index: 0,
+      hasNext: false,
       boardTotalCount: 0
     }
   },
@@ -55,7 +66,8 @@ export default {
   created() {
     // 메타정보 생성 후
     // DOM에 접근 불가
-    this.fetchList();
+    this.fetchJandiList();
+    this.fetchList(this.page);
     // console.log(this.moment)
   },
   beforeMount() {
@@ -78,24 +90,30 @@ export default {
     // DOM이 없어진 후
   },
   methods: {
-    async fetchList() {
-      // const response = await UserSvc.fetchList({ page: 0, limit: 10, searchText: ''});
-      const response = await UserSvc.fetchList({ page: this.page, limit: 10, searchText: ''});
-      console.log(response)
+    async fetchList(startPage) {
+      const response = await UserSvc.fetchList({ page: startPage, limit: 10, searchText: ''});
       this.boardList.push(...response.data.list);
       this.boardTotalCount = response.data.totalCount;
+      this.hasNext = response.data.hasNext;
+    },
+    async fetchJandiList() {
+      const response = await UserSvc.fetchJandiList({ gap: 364 });
+      console.log(response)
+      this.jandiList.push(...response.data);
     },
     fnLinkBoardView(boardNo) {
       this.$router.push({path: '/boardView', query: { boardNo: boardNo}});
     },
-    async test(){
-      if(this.boardList.length===0){
-        return
+    async test($state){
+      await wait(1000);
+      if(this.hasNext) {
+        this.page++;
+        await this.fetchList(this.page);
+        this.index++;
+      } else {
+        $state.complete()
       }
-      console.log("work?")
-      // this.page++;
-      // const response = await UserSvc.fetchList({ page: this.page, limit: 10, searchText: ''});
-      // this.boardList.push(...response.data.list);
+        // this.index++;
     }
 
 
