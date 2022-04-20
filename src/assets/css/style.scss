@@ -191,10 +191,11 @@ body {
     gap: 5px;
     flex-wrap: wrap;
     .jandi-block {
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background: #eee;
       border-radius: 3px;
+      margin-bottom: 5px;
       &.on {
         background: $color;
       }

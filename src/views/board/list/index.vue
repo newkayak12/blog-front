@@ -2,7 +2,12 @@
   <div>
     <div class="list" v-if="boardList.length">
       <div class="jandi" >
-        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>
+        <template v-for="(item, index) in jandiList" :key="index" >
+          <div class="group" v-if="index%7 === 0">
+            <div class="jandi-block" v-for="i in 7" :class="{on:(item>0)}"></div>
+          </div>
+        </template>
+<!--        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>-->
       </div>
       <p>게시글 수 : {{boardTotalCount}}</p>
       <table>
@@ -28,7 +33,6 @@
         첫 글을 작성해보세요!
       </p>
       <a href="">첫 글 쓰러 가기</a>
-  <!--    마크다운 에디터 참고 : https://v3.vuejs-korea.org/examples/markdown.html-->
     </div>
 <!-- <InfiniteLoading identifier=page firstLoad=false @infinite="test()"/>-->
     <div style="text-align: center; padding-top: 2rem;">
@@ -57,7 +61,8 @@ export default {
       page: 0,
       index: 0,
       hasNext: false,
-      boardTotalCount: 0
+      boardTotalCount: 0,
+      jandiWeeks: 0,
     }
   },
   beforeCreate() {
@@ -100,6 +105,7 @@ export default {
       const response = await UserSvc.fetchJandiList({ gap: 364 });
       console.log(response)
       this.jandiList.push(...response.data);
+      this.jandiWeeks = Math.trunc(this.jandiList.length / 7);
     },
     fnLinkBoardView(boardNo) {
       this.$router.push({path: '/boardView', query: { boardNo: boardNo}});
@@ -113,7 +119,6 @@ export default {
       } else {
         $state.complete()
       }
-        // this.index++;
     }
 
 
