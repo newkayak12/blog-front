@@ -185,22 +185,42 @@ body {
   margin:  0 auto;
   margin-top: 60px;
   padding-top: 50px;
-  .jandi {
-    margin-bottom: 30px;
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    .jandi-block {
-      width: 12px;
-      height: 12px;
-      background: #eee;
-      border-radius: 3px;
-      margin-bottom: 5px;
-      &.on {
-        background: $color;
+  .jandi-wrapper {
+    margin:0 auto;
+    .jandi {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      height: calc(12px * 7);
+      gap: 3px;
+      flex-wrap: wrap;
+      .jandi-block {
+        width: 12px;
+        height: 12px;
+        margin-bottom: 3px;
+        //height: calc(200px / 7);
+        background: #ebedf0;
+        border-radius: 2px;
+        border: 1px solid rgba(27, 31, 35, 0.06);
+        //&.on {
+        //  background: $color;
+        //}
+        &.on.level1 {
+          background: #9be9a8;
+        }
+        &.on.level2 {
+          background: #40c463;
+        }
+        &.on.level3 {
+          background: #30a14e;
+        }
+        &.on.level4 {
+          background: #216e39;
+        }
       }
     }
   }
+
   p {
     margin-bottom: 10px;
     color: $color;

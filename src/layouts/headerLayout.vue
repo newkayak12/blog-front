@@ -1,7 +1,8 @@
 <template>
     <div class="header">
       <div class="inner">
-        <a class="logo">블로그</a>
+
+        <a class="logo" @click="$router.push('/')">{{nick}}블로그</a>
         <template v-if="!auth()">
 <!--        <template v-if="!auth2">-->
           <a @click.prevent="fnLinkJoin()">회원가입</a>
@@ -34,6 +35,10 @@ export default {
     // auth(){
     //   return this.$store.getters['user/getAuthorization']
     // }
+    nick(){
+      const userData = JSON.parse(localStorage.getItem("userData"))
+      return userData? userData.userNickname+"'s ":""
+    }
   },
   methods: {
     fnLinkLogin() {
@@ -47,7 +52,8 @@ export default {
     },
     async fnLogout() {
       const response = await UserSvc.signOut();
-      await this.$router.push({path:'/'})
+      // await this.$router.push({path:'/'})
+      await this.$router.go()
       useToast().success("로그아웃되었습니다.");
     },
     auth() {

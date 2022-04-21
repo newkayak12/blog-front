@@ -1,13 +1,22 @@
 <template>
   <div>
     <div class="list" v-if="boardList.length">
+      <div class="jandi-wrapper">
       <div class="jandi" >
-        <template v-for="(item, index) in jandiList" :key="index" >
-          <div class="group" v-if="index%7 === 0">
-            <div class="jandi-block" v-for="i in 7" :class="{on:(item>0)}"></div>
-          </div>
-        </template>
+<!--        <template v-for="(item, index) in jandiList" :key="index" >-->
+<!--          <div class="group" v-if="index%7 === 0">-->
+<!--            <div class="jandi-block" v-for="i in 7" :class="{on:(item>0)}">-->
+<!--              {{index}}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div v-for="(item, index) in jandiList" :key="index" class="jandi-block" :class="{on:(item>0)}"></div>-->
+<!--        </template>-->
 <!--        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>-->
+
+        <div v-for="(item,idx) in jandiList" :key="idx" class="group">
+            <div v-for="(piece,inneridx) in item" :key="inneridx" class="jandi-block" :class="fnJandiColorManager(piece)"></div>
+        </div>
+      </div>
       </div>
       <p>게시글 수 : {{boardTotalCount}}</p>
       <table>
@@ -32,7 +41,7 @@
         아직 아무 글이 없네요.<br>
         첫 글을 작성해보세요!
       </p>
-      <a href="">첫 글 쓰러 가기</a>
+      <a href="" @click="fnLinkWriteBoard">첫 글 쓰러 가기</a>
     </div>
 <!-- <InfiniteLoading identifier=page firstLoad=false @infinite="test()"/>-->
     <div style="text-align: center; padding-top: 2rem;">
@@ -95,6 +104,9 @@ export default {
     // DOM이 없어진 후
   },
   methods: {
+    fnLinkWriteBoard() {
+      this.$router.push({path: '/boardWrite'});
+    },
     async fetchList(startPage) {
       const response = await UserSvc.fetchList({ page: startPage, limit: 10, searchText: ''});
       this.boardList.push(...response.data.list);
@@ -103,8 +115,22 @@ export default {
     },
     async fetchJandiList() {
       const response = await UserSvc.fetchJandiList({ gap: 364 });
-      console.log(response)
-      this.jandiList.push(...response.data);
+      let array = []
+      const arrays= []
+     response.data.forEach((v,i)=>{
+       if((i%7===0 && i!==0)){
+          arrays.push([...array])
+          array = []
+       }
+        array.push(v)
+       if(i===364){
+         arrays.push(array)
+       }
+     })
+
+      console.log(arrays)
+      // this.jandiList.push(...response.data);
+      this.jandiList = arrays
       this.jandiWeeks = Math.trunc(this.jandiList.length / 7);
     },
     fnLinkBoardView(boardNo) {
@@ -119,7 +145,27 @@ export default {
       } else {
         $state.complete()
       }
+    },
+    fnJandiColorManager(number = 0){
+      //lv1 : 1
+      //lv2 : 2
+      //lv3 : 5
+      //lv4 : 10
+        if(number <2 && number>=1){
+          return "on level1"
+        }
+        if(number <5 && number >=2){
+          return "on level2"
+        }
+        if(number <10 && number >=5){
+          return "on level3"
+        }
+        if(number >= 10){
+          return "on level4"
+        }
+
     }
+
 
 
   }
