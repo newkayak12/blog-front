@@ -8,8 +8,8 @@
       <input :type="isShowPassword" placeholder="로그인비밀번호" v-model="password">
 <!--      <button @click.prevent="fnShowPassword">show</button>-->
       <div class="btns">
-        <input type="button" value="로그인" @click="fnLogin">
-        <button>회원가입</button>
+        <input type="button" value="로그인" @click="fnLogin" @keyup.enter="fnLogin">
+        <button @click="fnJoin">회원가입</button>
       </div>
     </form>
     <div class="links">
@@ -39,7 +39,9 @@ export default {
       }
       return this.isShowPassword='password'
     },
-
+    fnJoin(){
+      this.$router.push({path:'/join'})
+    },
     async fnLogin(){
       const response = await UserSvc.signIn({userId:this.id, userPassword:this.password});
       console.log(response)
