@@ -72,7 +72,7 @@ export default {
     async fnChangePassword() {
       this.v$.$touch();
         if (this.newPassword !== this.newPasswordCheck) {
-          useToast().info('새비밀번호와 새비밀번호확인이 같아야합니다!');
+          useToast().info('새 비밀번호와 새 비밀번호 확인이 같아야합니다!');
           return;
         }
       const response = await UserSvc.changePassword({userPassword: this.password, newUserPassword: this.newPassword});

@@ -9,6 +9,7 @@ import myPage from '@/views/user/myPage/index'
 import boardList from '@/views/board/list/index'
 import boardView from '@/views/board/view/index'
 import boardWrite from '@/views/board/write/index'
+import changeNickname from "@/views/user/changeNickname";
 
 const routes = [
   {
@@ -65,6 +66,11 @@ const routes = [
     path: '/boardWrite',
     name: 'boardWrite',
     component: boardWrite
+  },
+  {
+    path: '/changeNickname',
+    name: 'changeNickname',
+    component: changeNickname
   }
 
 ]
