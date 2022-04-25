@@ -3,7 +3,7 @@
     <div class="editor-head">
       <input type="text" name="" id="" placeholder="제목을 입력하세요." :value="title" @input="typingTitle">
 
-      <button class="btn-main" @click="fnModifyBoard" v-if="Object.keys(boardObj)>0">글 수정</button>
+      <button class="btn-main" @click="fnModifyBoard" v-if="boardNo!==-1">글 수정</button>
       <button class="btn-main" @click="fnWriteBoard" v-else>글 등록</button>
     </div>
     <div class="remove-resetcss">
@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      boardNo:'',
       boardObj: {},
       title: '',
       text: '',
@@ -55,6 +56,7 @@ export default {
 
   },
   beforeMount() {
+    this.boardNo = this.$route.query.boardNo||-1
     if(this.$route.query.boardNo) {
       this.fetchOne();
     }

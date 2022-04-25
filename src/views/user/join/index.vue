@@ -17,7 +17,7 @@
 
       <div class="btns">
         <input type="button" value="회원가입" @click="fnJoin">
-        <button>로그인</button>
+        <button @click="fnLogin">로그인</button>
       </div>
     </form>
     <div class="links">
@@ -112,6 +112,9 @@ export default {
     }
   },
   methods:{
+    fnLogin(){
+      this.$router.push({path:"/login"})
+    },
     fnCheckNickname() {
 
     },
