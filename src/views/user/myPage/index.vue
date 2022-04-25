@@ -28,10 +28,9 @@ import { required } from '@vuelidate/validators'
 
 // 참고한 링크: https://medium.com/js-dojo/learn-form-validation-in-vue-3-in-10-minutes-with-vuelidate-8929c5059e66
 export function isPassword(value) {
-  const regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+  const regExp = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
   return regExp.test(value);
 }
-
 
 export default {
   name: "index",
@@ -70,18 +69,6 @@ export default {
     // DOM을 그린 후
   },
   methods: {
-    // async fnChangePassword() {
-    //   this.v$.$touch() // vuelidation 실행시킴 (처음 한번만 하면 됌)
-    //   if(this.v$.newPassword.$error||this.newPasswordCheck.$error) return false // validation의 error가 true이면 여기서 stop
-    //   if(this.password === this.newPassword) {
-    //     useToast().info('새 비밀번호는 기존 비밀번호와 같을 수 없습니다.');
-    //   } else {
-    //     if(this.newPassword === this.newPasswordCheck) {
-    //       // const response = await UserSvc.changePassword({userPassword: '??', newUserPassword: '??'});
-    //       useToast().success('새비밀번호와 새비밀번호확인이 같다!');
-    //     }
-    //   }
-    // }
     async fnChangePassword() {
       this.v$.$touch();
         if (this.newPassword !== this.newPasswordCheck) {

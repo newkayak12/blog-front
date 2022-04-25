@@ -41,7 +41,8 @@ export default {
     },
 
     async fnLogin(){
-      const response = await UserSvc.signIn({userId:this.id, userPassword:this.password})
+      const response = await UserSvc.signIn({userId:this.id, userPassword:this.password});
+      console.log(response)
       if(response.data.code === 200) {
          await useToast().success(response.data.msg);
          await this.$router.push({path: '/boardList'});
