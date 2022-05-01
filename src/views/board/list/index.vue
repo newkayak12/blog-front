@@ -2,21 +2,22 @@
   <div>
     <div class="list" v-if="boardList.length">
       <div class="jandi-wrapper">
-      <div class="jandi" >
-<!--        <template v-for="(item, index) in jandiList" :key="index" >-->
-<!--          <div class="group" v-if="index%7 === 0">-->
-<!--            <div class="jandi-block" v-for="i in 7" :class="{on:(item>0)}">-->
-<!--              {{index}}-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div v-for="(item, index) in jandiList" :key="index" class="jandi-block" :class="{on:(item>0)}"></div>-->
-<!--        </template>-->
-<!--        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>-->
+          <div class="jandi" >
+    <!--        <template v-for="(item, index) in jandiList" :key="index" >-->
+    <!--          <div class="group" v-if="index%7 === 0">-->
+    <!--            <div class="jandi-block" v-for="i in 7" :class="{on:(item>0)}">-->
+    <!--              {{index}}-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div v-for="(item, index) in jandiList" :key="index" class="jandi-block" :class="{on:(item>0)}"></div>-->
+    <!--        </template>-->
+    <!--        <div class="jandi-block" v-for="(item, index) in jandiList" :key="index" :class="{on:(item>0)}"></div>-->
 
-        <div v-for="(item,idx) in jandiList" :key="idx" class="group">
-            <div v-for="(piece,inneridx) in item" :key="inneridx" class="jandi-block" :class="fnJandiColorManager(piece)"></div>
-        </div>
-      </div>
+            <div v-for="(item,idx) in jandiList" :key="idx" class="group">
+                <div v-for="(piece,inneridx) in item" :key="inneridx" class="jandi-block" :class="fnJandiColorManager(piece)"></div>
+            </div>
+
+          </div>
       </div>
       <p>게시글 수 : {{boardTotalCount}}</p>
       <table>
@@ -29,7 +30,8 @@
         <tbody>
         <tr v-for="(item,i) in boardList" @click="fnLinkBoardView(item.boardNo)">
           <td>{{boardTotalCount-i}}</td>
-          <td class="title">{{item.boardTitle}}</td>
+          <td class="title">{{ cutting(item.boardTitle) }}</td>
+<!--          <td class="title">{{ item.boardTitle }}</td>-->
           <td>{{$filters.moment(item.boardWrittenDate,"YYYY-MM-DD")}}</td>
           <td>{{$filters.moment(item.boardUpdateDate,"YYYY-MM-DD") || "-"}}</td>
         </tr>
@@ -164,6 +166,10 @@ export default {
           return "on level4"
         }
 
+    },
+    cutting(title){
+      console.log(document.documentElement.clientWidth)
+      return document.documentElement.clientWidth < 767 && title.length > 12 ? title.substring(0, 12) + '...' : title
     }
 
 
