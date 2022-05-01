@@ -45,6 +45,13 @@ class userSvc extends Service{
             })
     }
 
+    changeNickname(param={}){
+        return this.patch("/api/user/changeNickname", param)
+            .then(response=>{
+                return response.data
+            })
+    }
+
     fetchList(param={}) {
         return this.get('/api/board/fetchList', param)
             .then(response => {

@@ -16,6 +16,7 @@
 import {useVuelidate} from "@vuelidate/core";
 import {useToast} from "vue-toastification";
 import user from "@/store/User";
+import UserSvc from "@/service/UserSvc";
 
 export default {
   name: "index",
@@ -48,13 +49,18 @@ export default {
     }
   },
   methods:{
-    fnChangeNickname(){
+    async fnChangeNickname(){
       this.v$.touch()
       if(this.v$.invalid){
         return false
       }
+      const response = await UserSvc.changeNickname({userNickname: this.userNickname})
+      if(response.code === 200){
+        useToast().success(response.msg)
+      } else {
+        useToast().error(response.msg)
+      }
 
-      useToast().success("닉네임 변경 성공")
     }
   }
 }
